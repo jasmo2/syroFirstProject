@@ -1,3 +1,4 @@
-require 'app'
+# require 'syro'
+require './app'
 
-run(SQLServerService)
+run(App)

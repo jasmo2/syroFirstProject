@@ -1,35 +1,26 @@
-require "syro"
+require_relative 'lib/my_json.rb'
 
-app = Syro.new {
+App = Syro.new(MyJson) {
   get{
     res.write "root"
   }
-  on("foo") {
-    on("bar") {
-      get {
-        res.write "GET /foo/bar/"
-      }
-      on("baz") {
-        get {
-          res.write "GET /foo/bar/baz"
+  on("placa_bus") {
+    on(:placa_bus) {
+      on("fecha_i"){
+        on(:fecha_i){
+          on("fecha_f"){
+            on(:fecha_f){
+              get {
+                my_response(
+                    placa_bus: inbox[:placa_bus],
+                    fecha_i: Time.at(inbox[:fecha_i].to_i),
+                    fecha_f: Time.at(inbox[:fecha_f].to_i),
+                )
+              }
+            }
+          }
         }
       }
     }
   }
-  on("posts") {
-    on(:post_id) {
-      get {
-        res.write "GET /posts/#{inbox[:post_id]}"
-      }
-      on("comments"){
-        res.write "GET /posts/#{inbox[:post_id]}/comments"
-      }
-    }
-  }
-  on(env["HTTP_REFERER"] != "") {
-    get {
-      res.write "HTTP_REFERER => #{env["HTTP_REFERER"]}"
-    }
-  }
-
 }
