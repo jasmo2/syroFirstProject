@@ -1,40 +1,11 @@
-# First, install gemfile gem and run:
-# $ gemfile .gems > Gemfile
-# Then, place this file inside the project and run:
-# ruby gemfile.rb > Gemfile.lock
-# Add this file to the .gitignore
-
-#!/usr/bin/env ruby
-
-RUNTIME_DEPS = /^\s*([^ ]+).*\d\)$/
-INSTALL_DEPS = /^([^ ]+)\s+\((.+)\)$/
-DEFINED_DEPS = /^([^ ]+)\s+-v\s+(.+)$/
-
-gems = `gem list`
-list = File.read(ARGV[0] || '.gems')
-deps = lambda { |gem| `gem dependency /\\\\A#{gem}\\\\z/` }
-
-puts <<EOS
 GEM
   remote: https://rubygems.org/
   specs:
-EOS
 
-gems.lines.grep(INSTALL_DEPS) do |line|
-  printf("    %s (%s)\n", $1, $2)
-
-  deps[$1].lines.grep(RUNTIME_DEPS) do
-    printf("      %s\n", $1)
-  end
-end
-
-puts <<EOS
 PLATFORMS
   ruby
 
 DEPENDENCIES
-EOS
 
-list.lines.grep(DEFINED_DEPS) do |line|
-  printf("  %s (= %s)\n", $1, $2)
-end
+BUNDLED WITH
+   1.10.6
