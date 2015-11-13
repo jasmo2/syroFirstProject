@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/*
 /.gs
+*.csv
+gemfile.rb
+*.log

@@ -1,4 +1,4 @@
-require_relative './connection_pool'
+require './connection_pool'
 class QueryMaker
   @connection
   FIELDS = ["subidas", "bajadas"]

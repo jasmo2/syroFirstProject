@@ -1,4 +1,3 @@
-
 require 'tiny_tds'
 class ConnectionPool
   # bus_id,fecha_i,fecha_f
