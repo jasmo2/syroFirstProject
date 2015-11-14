@@ -1,6 +1,6 @@
 require 'syro'
 require 'json'
-require './lib/query_maker'
+require '.query_maker'
 class MyJson <  Syro::Deck
   def default_headers
     { 'Content-Type' => 'application/json' }

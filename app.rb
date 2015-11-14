@@ -1,4 +1,4 @@
-require "./lib/my_json.rb"
+require "./my_json.rb"
 
 App = Syro.new(MyJson) {
   get{
