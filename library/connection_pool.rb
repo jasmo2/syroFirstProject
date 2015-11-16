@@ -7,14 +7,17 @@ class ConnectionPool
     @client
   end
   def execute query=""
-    query = @client.escape(query)
-    @client.execute(query).each
+    @client.execute(query).each()
   end
   def close
     @client.close
   end
   private
   def connect
-    @client = TinyTds::Client.new username: ENV['COONATRA_USERNAME'], password: ENV['COONATRA_PASSWORD'], port: ENV['COONATRA_PORT'],  host: ENV['COONATRA_IP'], database: ENV['COONATRA_DB']
+    @client = TinyTds::Client.new username: ENV['COONATRA_USERNAME'],
+                                  password: ENV['COONATRA_PASSWORD'],
+                                  port: ENV['COONATRA_PORT'],
+                                  host: ENV['COONATRA_IP'],
+                                  database: ENV['COONATRA_DB']
   end
 end
