@@ -6,6 +6,29 @@ class MyJson <  Syro::Deck
     { 'Content-Type' => 'application/json' }
   end
   def my_response(obj)
-    res.write JSON.dump({'ans' => "this is the answer for #{obj[:placa_bus]}"}.to_json)
+    obj[:fecha_i] = SQL_date_format(obj[:fecha_i]);
+    obj[:fecha_f] = SQL_date_format(obj[:fecha_f]);
+    q = QueryMaker.new
+    r = q.get_passengers(obj[:bus_id],obj[:fecha_i],obj[:fecha_f])
+    res.write JSON.generate({'response' => r}.to_json)
   end
+
+  private
+  def SQL_date_format(date)
+    "%{Y}-%{m}-%{d} %{H}:%{M}:%{S}" % {
+        Y:doubleNumber(Time.at(date).year),
+        m:doubleNumber(Time.at(date).month),
+        d:doubleNumber(Time.at(date).day),
+        H:doubleNumber(Time.at(date).hour),
+        M:doubleNumber(Time.at(date).min),
+        S:doubleNumber(Time.at(date).sec)
+    }
+  end
+  def doubleNumber(number)
+    if (number < 10)
+      return "0#{number.to_s}"
+    end
+    number.to_s
+  end
+
 end
