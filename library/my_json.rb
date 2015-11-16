@@ -10,7 +10,7 @@ class MyJson <  Syro::Deck
     obj[:fecha_f] = SQL_date_format(obj[:fecha_f]);
     q = QueryMaker.new
     r = q.get_passengers(obj[:bus_id],obj[:fecha_i],obj[:fecha_f])
-    res.write JSON.generate({'response' => r}.to_json)
+    res.write JSON.generate({'passengerQuantity' => r})
   end
 
   private
