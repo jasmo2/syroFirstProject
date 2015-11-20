@@ -17,14 +17,17 @@ class QueryMaker
   private
   def get_total_passengers(records)
     total_passengers = 0
+    tripRounds = 0
     records.each_with_index do|record, i|
       if i == 0
         total_passengers+=record['PASAJEROS_ORIGINALES']
+        tripRounds += 1
       elsif !records[i]['FECHA_HORA_INICIAL'].eql?(records[i-1]['FECHA_HORA_INICIAL']) && !records[i]['FECHA_HORA_FINAL'].eql?(records[i-1]['FECHA_HORA_FINAL'])
         total_passengers+=record['PASAJEROS_ORIGINALES']
+        tripRounds += 1
       end
     end
-    total_passengers
+    return total_passengers, tripRounds
   end
   def get_vehicle_id(placa_bus)
     placa_espacio = placa_bus

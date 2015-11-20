@@ -9,8 +9,8 @@ class MyJson <  Syro::Deck
     obj[:fecha_i] = SQL_date_format(obj[:fecha_i]);
     obj[:fecha_f] = SQL_date_format(obj[:fecha_f]);
     q = QueryMaker.new
-    r = q.get_passengers(obj[:bus_id],obj[:fecha_i],obj[:fecha_f])
-    res.write JSON.generate({'passengerQuantity' => r})
+    passengers,tripRounds = q.get_passengers(obj[:bus_id],obj[:fecha_i],obj[:fecha_f])
+    res.write JSON.generate({'passengerQuantity' => dataAnalitic(passengers),'tripRounds' => dataAnalitic(tripRounds)})
   end
 
   private
@@ -30,5 +30,10 @@ class MyJson <  Syro::Deck
     end
     number.to_s
   end
-
+  def dataAnalitic (passangers)
+    if passangers == 0
+      return "Aun no hay datos analizados"
+    end
+    passangers
+  end
 end
